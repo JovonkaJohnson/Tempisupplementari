@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Congratulations</title>
+<link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  body, html {
+    margin:0; padding:0;
+    width:100%; height:100%;
+    background: #fff9e2;
+    font-family:'Poppins', sans-serif;
+    overflow:hidden;
+    display:flex; justify-content:center; align-items:center;
+  }
+
+  .fade-overlay {
+    position:absolute; top:0; left:0;
+    width:100%; height:100%;
+    background:#222222;
+    z-index:3;
+    opacity:1;
+    transition: opacity 1.5s ease;
+  }
+
+  .panel {
+    position:absolute;
+    width:60%;
+    padding:30px;
+    background:#ffffff;
+    border-radius:20px;
+    color:#000000;
+    z-index:2;
+    opacity:0;
+    transform:scale(0.8);
+    transition: all 0.6s ease;
+    cursor:pointer;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .typing {
+    white-space:pre-wrap;
+    overflow:hidden;
+    font-size:20px;
+    line-height:1.6;
+    max-width:650px;
+    min-height:80px;
+    text-align: center;
+  }
+
+  #clickText {
+    position:absolute;
+    font-size:14px;
+    bottom:50px;
+    left:50%;
+    transform:translateX(-50%);
+    color:#3f3f3f;
+    opacity:0;
+    animation: fadeinout 4s infinite alternate;
+    animation-play-state: paused;
+    z-index:2;
+  }
+
+  @keyframes fadeinout {
+    0% {opacity:0;}
+    50% {opacity:1;}
+    100% {opacity:0;}
+  }
+
+  canvas {
+    position:absolute; top:0; left:0;
+    width:100%; height:100%;
+    pointer-events:none;
+    z-index:1;
+  }
+</style>
+</head>
+<body>
+
+<canvas id="confetti"></canvas>
+<div class="fade-overlay" id="fadeOverlay"></div>
+
+<div class="panel" id="panel">
+  <div class="typing" id="typing"></div>
+</div>
+
+<div id="clickText">Press to continue</div>
+
+<script>
+const textRaw = "Congratulations on collecting all the cards! But the celebration won’t start until the challenge is complete...";
+
+const typingEl = document.getElementById('typing');
+const panelEl = document.getElementById('panel');
+const fadeOverlay = document.getElementById('fadeOverlay');
+const clickText = document.getElementById('clickText');
+const canvas = document.getElementById('confetti');
+const ctx = canvas.getContext('2d');
+
+let charIndex = 0;
+let lineFinished = false;
+
+// Typing animation (slower)
+function typeText(text){
+  typingEl.textContent = '';
+  charIndex = 0;
+  lineFinished = false;
+
+  clickText.style.opacity = 0;
+  clickText.style.animationPlayState = 'paused';
+
+  function typeChar(){
+    if(charIndex < text.length){
+      typingEl.textContent += text[charIndex];
+      charIndex++;
+      setTimeout(typeChar, 40); // slower typing
+    } else {
+      // Typing finished: show click text after delay
+      lineFinished = true;
+      setTimeout(()=>{
+        clickText.style.opacity = 1;
+        clickText.style.animationPlayState = 'running';
+      }, 1000);
+    }
+  }
+  typeChar();
+}
+
+window.onload = ()=>{
+  fadeOverlay.style.opacity = 0;
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  // Delay confetti/fireworks
+  setTimeout(confettiAnimation, 500);
+
+  // Delay panel popup
+  setTimeout(()=>{
+    panelEl.style.opacity = 1;
+    panelEl.style.transform='scale(1)';
+    typeText(textRaw);
+  }, 1500);
+};
+
+window.addEventListener('resize', ()=>{
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+
+// Firework-style confetti
+function confettiAnimation(){
+  const fireworks = [];
+
+  for(let i=0;i<10;i++){
+    fireworks.push({
+      x: Math.random()*canvas.width,
+      y: canvas.height + Math.random()*100,
+      speed: 5 + Math.random()*3,
+      angle: -Math.PI/2 + (Math.random()-0.5)*0.5,
+      color: `hsl(${Math.random()*360},100%,50%)`,
+      exploded: false,
+      particles: []
+    });
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    fireworks.forEach(fw=>{
+      if(!fw.exploded){
+        fw.x += Math.cos(fw.angle)*fw.speed;
+        fw.y += Math.sin(fw.angle)*fw.speed;
+        ctx.beginPath();
+        ctx.arc(fw.x, fw.y, 3, 0, Math.PI*2);
+        ctx.fillStyle = fw.color;
+        ctx.fill();
+
+        if(fw.y < canvas.height/2 || Math.random()<0.02){
+          fw.exploded = true;
+          for(let i=0;i<30;i++){
+            const angle = Math.random()*2*Math.PI;
+            const speed = 2 + Math.random()*3;
+            fw.particles.push({
+              x: fw.x,
+              y: fw.y,
+              vx: Math.cos(angle)*speed,
+              vy: Math.sin(angle)*speed,
+              r: 2 + Math.random()*2,
+              color: `hsl(${Math.random()*360},100%,50%)`
+            });
+          }
+        }
+      } else {
+        fw.particles.forEach(p=>{
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vy += 0.05; // gravity
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+          ctx.fillStyle = p.color;
+          ctx.fill();
+        });
+      }
+    });
+
+    requestAnimationFrame(draw);
+  }
+  draw();
+}
+
+// Click anywhere after typing finishes
+document.body.addEventListener('click', ()=>{
+  if(!lineFinished) return;
+  fadeOverlay.style.opacity = 1;
+  setTimeout(()=>{ window.location.href='game.html'; },1500);
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Kick</title>
+  <link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Poppins:wght@400;700&display=swap"
+    rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #fff9e2;
+      display: flex;
+      justify-content: center;
+      overflow-x: hidden;
+      width: 100%;
+    }
+
+
+    .page-container {
+      text-align: center;
+      width: 100%;
+
+      height: auto;
+
+      display: block;
+    }
+
+    .page-image {
+      width: 100%;
+      display: block;
+      transform-origin: center center;
+      animation: kickoffIntro 0.9s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes kickoffIntro {
+
+      0% {
+        transform: scale(1.15) scaleY(0.9);
+      }
+
+      40% {
+        transform: scale(1.07) scaleY(1.05);
+      }
+
+      65% {
+        transform: scale(1.02) scaleY(0.98);
+      }
+
+      100% {
+        transform: scale(1) scaleY(1);
+      }
+
+    }
+
+    .page-image2 {
+      width: 100%;
+      height: auto;
+      display: block;
+      padding-top: 40px;
+      padding-bottom: 20px;
+    }
+
+    .page-text {
+      font-size: clamp(16px, 2.5vw, 20px);
+      line-height: 1.8;
+      text-align: left;
+      padding: 20px;
+      color: #333;
+
+    }
+
+
+
+    .page-text p {
+      margin-bottom: 1em;
+    }
+
+    .page-text strong {
+      display: block;
+      font-size: clamp(18px, 3vw, 22px);
+      margin-top: 20px;
+      margin-bottom: 10px;
+      color: #1a1a1a;
+    }
+
+    .return-btn {
+      display: inline-block;
+      padding: 2%;
+      width: 40%;
+      margin-bottom: 10%;
+      margin-top: 10%;
+      background: rgba(0, 0, 0, 0.721);
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      font-size: clamp(16px, 2.5vw, 20px);
+    }
+
+
+    .or-heading {
+
+      font-size: clamp(15px, 4vw, 15px);
+      color: rgba(76, 76, 76, 0.768)
+    }
+
+
+    .nav-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0%;
+
+
+    }
+
+
+    .nav-grid a {
+      display: flex;
+      overflow-y: hidden;
+      overflow-x: hidden;
+      justify-content: center;
+    }
+
+    .nav-grid a img {
+      width: 100%;
+
+      height: auto;
+      transition: transform 0.3s ease;
+    }
+
+
+    .nav-grid a:hover img {
+      transform: scale(1.05);
+    }
+
+    @keyframes sportyFloat {
+      0% {
+        transform: scale(1) rotateZ(0deg);
+      }
+
+      25% {
+        transform: scale(1.05) rotateZ(-2deg);
+      }
+
+      50% {
+        transform: scale(1) rotateZ(2deg);
+      }
+
+      75% {
+        transform: scale(1.03) rotateZ(-1deg);
+      }
+
+      100% {
+        transform: scale(1) rotateZ(0deg);
+      }
+    }
+
+    .sporty-float {
+      animation: sportyFloat 2.5s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
+      transform-origin: center center;
+    }
+
+    .banner-button {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      width: 80%;
+      max-width: 1440px;
+      margin: 20px auto;
+      border-radius: 15px;
+      overflow: hidden;
+      cursor: pointer;
+
+
+      animation: whitePulse 2s ease-out infinite;
+    }
+
+    @keyframes whitePulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(255, 247, 0, 0.8);
+      }
+
+      60% {
+        box-shadow: 0 0 25px 10px rgba(255, 247, 0, 0.4);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(255, 247, 0, 0);
+      }
+    }
+
+    .banner-img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+
+    .cta-section {
+
+
+      padding-right: 10%;
+      padding-left: 10%;
+    }
+
+    .cta-text {
+      font-size: clamp(15px, 2.6vw, 20px);
+
+      color: #1a1a1a;
+      margin-bottom: 18px;
+
+      text-align: center;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      padding: 14px 28px;
+      background: #000;
+      color: white;
+      text-decoration: none;
+      border-radius: 40px;
+      font-weight: 700;
+      font-size: 15px;
+      font-family: 'Russo One', sans-serif;
+
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, .25);
+    }
+
+    .section {
+      min-height: auto;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+
+    }
+
+
+    .section1 {
+      position: relative;
+      height: 25%;
+      z-index: 200;
+    }
+
+
+    .section1::before {
+      content: "";
+      width: 100%;
+      position: absolute;
+      inset: 0;
+      background: url("images/1stsection.png") center/cover no-repeat;
+      opacity: 0.8;
+      filter: blur(0.4px) saturate(1.5);
+
+
+    }
+
+
+    .section1::after {
+      content: "";
+      position: absolute;
+      width: 70%;
+      height: 70%;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      background: radial-gradient(circle,
+          rgba(255, 255, 255, 1) 0%,
+          rgba(255, 255, 255, 1) 20%,
+          rgba(255, 255, 255, 1) 40%,
+          rgba(255, 255, 255, 1) 55%,
+          transparent 70%);
+
+      filter: blur(35px);
+
+      z-index: 1;
+    }
+
+
+    .section1 .page-image {
+      position: relative;
+      z-index: 200;
+      bottom: 10%
+    }
+
+
+
+    .section2 {
+      background: #fff9e2;
+      font-size: clamp(16px, 2.5vw, 20px);
+      z-index: -2;
+      padding-right: 10%;
+      padding-left: 10%;
+      padding-top: 5%;
+
+    }
+
+    .section2 p {
+      padding-bottom: 5%;
+      text-align: left;
+    }
+
+    .team-quote {
+      font-style:italic;
+
+      text-align: left;
+
+      margin-bottom: 5%;
+    }
+
+    .team-quote span {
+      display: inline-block;
+      background: black;
+
+      color: #fff9e2;
+      padding: 8px 14px;
+      margin: 6px 0;
+      font-weight: 700;
+      font-size: clamp(18px, 2.7vw, 27px);
+    }
+
+    .section3 {
+      content: "";
+      width: 100%;
+
+      inset: 0;
+      background: url("images/section3.png") center/cover no-repeat;
+      padding: 5%;
+
+      padding-top: 30%;
+      padding-bottom: 30%;
+      margin-bottom: 10%;
+      color: #fff9e2;
+      position: relative;
+      font-size: clamp(16px, 2.5vw, 20px);
+      padding-right: 10%;
+      padding-left: 10%;
+      text-align: left;
+    }
+
+    .section3 p {
+      margin-bottom: 5%;
+
+
+    }
+
+    .red-label{
+
+position: relative;
+background:red;
+color:#fff9e2;
+padding:8px 14px;
+font-weight:700;
+display:inline-block;
+font-size:clamp(12px,2.7vw,30px);
+top:10%;
+
+width: 100%;
+
+}
+
+    .verse-box {
+      display: inline-block;
+      background: #fff9e2;
+      color: black;
+      width: 90%;
+      font-weight: 700;
+      margin: 6px 0;
+      text-align: left;
+      padding-left: 2%;
+      padding-right: 2%;
+      font-size: clamp(18px, 2.7vw, 27px);
+      text-transform: uppercase;
+    }
+
+    .scribble-underline {
+      text-decoration: underline wavy red;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 1px;
+
+    }
+
+    .section4 {
+      margin-bottom: 10%;
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      padding-right: 10%;
+      padding-left: 10%;
+      box-sizing: border-box;
+    }
+
+    .full-rect-list {
+      display: flex;
+
+      align-items: stretch;
+      gap: 16px;
+      text-align: left;
+    }
+
+
+    .full-rect-list .rect {
+      overflow: hidden;
+      width: 10px;
+      background-color: rgb(255, 213, 0);
+    }
+
+
+    .full-rect-list .text-content {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      font-size: clamp(16px, 2.5vw, 20px);
+    }
+
+    .red-circle {
+      overflow: hidden;
+      border: 1px solid red;
+      border-radius: 50%;
+    }
+
+
+    .section5 {
+      padding-right: 10%;
+      padding-left: 10%;
+      text-align: left;
+      font-size: clamp(16px, 2.5vw, 20px);
+    }
+
+
+    .scripture-title {
+      background: url('images/section5.png') center/cover no-repeat;
+      color: white;
+      padding: 7%;
+      margin-top: 7%;
+      text-align: center;
+      font-weight: bold;
+      font-size: clamp(18px, 2.5vw, 25px);
+    }
+
+
+    .scripture-text {
+      margin: 12px 0 24px 0;
+      font-size: clamp(16px, 2.5vw, 20px);
+      line-height: 1.6;
+
+      text-align: left;
+    }
+
+
+    .cta-line {
+      background-color: #0037ff;
+      color: white;
+      padding: 12px 16px;
+
+      font-size: clamp(18px, 3vw, 26px);
+
+      margin-top: -20%;
+    }
+  </style>
+</head>
+
+<body data-page="4">
+
+
+  <div class="page-container">
+    <section class="section section1">
+
+      <img src="images/Free Kick Card.webp" class="page-image">
+    </section>
+    <section class="section section4">
+      <div class="text-box full-rect-list">
+        <div class="rect"></div>
+        <div class="text-content">
+          <p>
+            Place the ball on the pitch.
+          </p>
+          <br>
+          <p>Deep breaths. </p>
+          <p>Eyes ahead.</p>
+          <p>This kick will win the game.</p>
+          <p>So you better check your aim.</p>
+          <p>Free kicks require a player to aim at one thing—
+            <span class="red-circle">the goal.</span>
+
+          </p>
+
+        </div>
+      </div>
+    </section>
+
+
+    <section class="section section5">
+      <div class="text-box">
+
+        <p>
+          In life, everyone aims—few choose the right goal.
+          A goal that lasts forever.
+          But what is that goal for you?
+        </p>
+
+
+        <p class="scripture-title">
+          <strong>Philippians 3:13-14</strong>
+        </p>
+
+
+        <p class="scripture-text">
+          <i> “Forgetting what is behind and straining toward what is ahead, I press on toward the goal to win the prize for which God has called me heavenward in Christ Jesus.” </i>
+        </p>
+
+
+
+      </div>
+    </section>
+
+
+    <section class="section section2">
+
+      <div class="text-box">
+
+<p>The highest goal is faith—trusting in Jesus.</p>
+
+        <div class="team-quote">
+          <span>Free kicks and faith are both gifts,</span><br>
+          <span>but neither is meant to be taken lightly.
+
+          </span><br>
+          <span>Both require intention, discipline, and a singular aim.
+          </span>
+        </div>
+        <p>And while a free kick can change a game, faith changes everything—now and forever.</p>
+      </div>
+
+    </section>
+
+    <section class="section section3">
+
+      <div class="text-box">
+
+
+        <p>The aim of faith is to serve and honor God.</p>
+        <p>To know Jesus and walk with Him daily.
+        </p>
+
+        <p>It’s a journey that requires your 
+
+          <span class="scribble-underline">whole heart and an eternal focus.
+          </span>
+        </p>
+
+
+        <p>
+          <span class="verse-box">
+            Faith in Jesus is the center—the aim.
+
+          </span>
+
+          <span class="verse-box">
+            And because of this, our goal in life becomes clear.
+          </span>
+        </p>
+
+      </div>
+
+    </section>
+
+    <section class="section section5">
+
+      <h1 class="cta-line">Faith means there’s more to your story. What’s your aim?</h1>
+
+
+    </section>
+
+    <a href="https://www.bible.com/reading-plans/25084-catechism-gods-love" target="_blank" class="banner-button">
+      <img src="images/English-colored.webp" alt="" class="banner-img" />
+
+    </a>
+    <div class="or-heading"></div>
+    <div class="cta-section">
+
+      <div class="cta-text">
+        Train your heart like you train your game.<br>
+        Discover what God says about purpose, teamwork, and perseverance.
+      </div>
+
+      <a href="#menu-buttons" class="cta-btn">
+        Tap to continue your journey
+      </a>
+
+    </div>
+    <div class="nav-grid">
+      <a href="page3.html"><img src="images/Workteam Card.webp"></a>
+
+      <a href="page2.html"><img src="images/Goalkeeping.webp"></a>
+      <a href="page4.html"><img src="images/Assisting Card.webp"></a>
+      <a href="page5.html"><img src="images/Giant Killer.webp"></a>
+    </div>
+    <a href="index.html#menu-buttons" class="return-btn">Return to Field?</a>
+  </div>
+  <script>
+    const REQUIRED = ["1", "2", "3", "4", "5", "6"];
+
+    function getVisited() {
+      return JSON.parse(localStorage.getItem("visitedPages")) || [];
+    }
+
+    function saveVisited(list) {
+      localStorage.setItem("visitedPages", JSON.stringify(list));
+    }
+
+    function markPageVisited(pageId) {
+      if (!REQUIRED.includes(pageId)) return;
+
+      const visited = getVisited();
+      if (!visited.includes(pageId)) {
+        visited.push(pageId);
+        saveVisited(visited);
+      }
+    }
+
+    function getProgress() {
+      const visited = getVisited();
+      const completed = REQUIRED.filter(id => visited.includes(id)).length;
+      return {
+        completed,
+        total: REQUIRED.length,
+        percent: (completed / REQUIRED.length) * 100
+      };
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+
+      const CURRENT_PAGE = document.body.dataset.page;
+
+
+      markPageVisited(CURRENT_PAGE);
+      const progress = getProgress();
+
+
+      const progressBtn = document.getElementById("progress-ui");
+      const overlay = document.getElementById("progress-overlay");
+      const progressCount = document.getElementById("progress-count");
+      const finalBtn = document.getElementById("goto-final");
+      const closeBtn = document.getElementById("close-popup");
+
+      if (overlay) overlay.style.display = "none";
+
+      function updateOverlayUI() {
+        if (progressCount) {
+          progressCount.textContent = `${progress.completed} / 6 completed`;
+        }
+
+        if (finalBtn) {
+          finalBtn.style.display =
+            progress.completed === 6 ? "inline-block" : "none";
+        }
+      }
+
+      progressBtn?.addEventListener("click", () => {
+        overlay.style.display =
+          overlay.style.display === "flex" ? "none" : "flex";
+      });
+
+      closeBtn?.addEventListener("click", () => {
+        overlay.style.display = "none";
+      });
+
+      finalBtn?.addEventListener("click", () => {
+        window.location.href = "index.html#final-section";
+      });
+
+      updateOverlayUI();
+    });
+    document.addEventListener("DOMContentLoaded", () => {
+
+
+      const gridButtons = document.querySelectorAll('.nav-grid a img');
+
+      function triggerAnimation(btn) {
+        btn.classList.remove('sporty-float');
+        void btn.offsetWidth;
+        btn.classList.add('sporty-float');
+      }
+
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            triggerAnimation(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+
+      gridButtons.forEach(btn => observer.observe(btn));
+
+    });
+    document.addEventListener("DOMContentLoaded", () => {
+
+
+      const elements = document.querySelectorAll(
+        '.page-container > *'
+      );
+
+
+      elements.forEach(el => {
+        el.style.opacity = "0";
+        el.style.transform = "translateY(40px)";
+        el.style.transition = "opacity 0.9s ease-out, transform 0.9s ease-out";
+      });
+
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = "1";
+            entry.target.style.transform = "translateY(0)";
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+
+      elements.forEach(el => observer.observe(el));
+
+    });
+
+
+  </script>
+
+</body>
+
+</html>

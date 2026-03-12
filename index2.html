@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Extra Time</title>
+  <link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+  <div id="preloader" style="
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: #000;
+  z-index: 999999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+">
+  <img src="images/soccer-ball.webp" id="preloader-ball" style="
+    width: 80px;
+    height: 80px;
+    animation: spin 1s linear infinite;
+  ">
+</div>
+
+<style>
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+</style>
+  <!-- SECTION 1: PARALLAX HERO -->
+  <section class="hero-section">
+    <div class="parallax-wrapper">
+      <img src="images/Background.webp" class="layer bg" />
+      <div class="parallax-layers">
+        <img src="images/Colors.webp" class="layer layer-1" />
+        <img src="images/Player.webp" class="layer layer-2" />
+        <img src="images/Text.webp" class="layer layer-3" />
+      </div>
+    </div>
+  </section>
+
+
+  <section id="menu-section" class="menu-section">
+    <div  class="menu-wrapper">
+      <div class="menu-boundary">
+        <div  class="menu-buttons">
+          <img  src="images/Goalkeeping.webp" id="menu-buttons" class="menu-btn" data-page="page2.1.html" data-id="1" />
+          <img  src="images/Workteam Card.webp" class="menu-btn" data-page="page3.1.html" data-id="2" />
+          <img  src="images/Close Contol Card.webp" class="menu-btn" data-page="page6.1.html" data-id="5" />
+          <img  src="images/Free Kick Card.webp" class="menu-btn" data-page="page1.1.html" data-id="4" />
+          <img  src="images/Assisting Card.webp" class="menu-btn" data-page="page4.1.html" data-id="3" />
+          <img  src="images/Giant Killer.webp" class="menu-btn" data-page="page5.1.html" data-id="6" />
+          <img src="images/Card.webp" class="menu-btn" data-page="end.html" data-id="7" /> 
+          <img  src="images/Celebration.webp" class="menu-btn" id="final-section" style="height: 100vh;" />
+          <h2 class="menu-btn">Tap on a card</h2>
+
+        </div>
+      </div>
+      <div class="menu-boundary2">
+        <div  class="menu-buttons2">
+           <img src="images/Goalkeeping locked.webp" class="menu-btn pulse-btn" />
+           <img src="images/Workteam Card locked.webp" class="menu-btn pulse-btn" />
+           <img src="images/Close Contol Card locked.webp" class="menu-btn pulse-btn" />
+           <img src="images/Free Kick Card locked.webp" class="menu-btn pulse-btn" />
+           <img src="images/Assisting Card locked.webp" class="menu-btn pulse-btn" />
+           <img src="images/Giant Killer locked.webp" class="menu-btn pulse-btn" />
+           <img src="images/Card.webp" class="menu-btn pulse-btn" />
+          </div>
+     </div>
+    </div>
+    
+  </section>
+
+
+  <script src="script2.js"></script>
+</body>
+</html>

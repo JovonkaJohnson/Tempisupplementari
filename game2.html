@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Game</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+html, body {
+margin:0;
+width:100%;
+height:100%;
+overflow:hidden;
+background:#000;
+font-family:'Poppins', sans-serif;
+touch-action:none;
+user-select:none;
+}
+
+#gameArea {
+position:fixed;
+inset:0;
+overflow:hidden;
+}
+
+/* BACKGROUND */
+#sky {
+    position: absolute;
+    bottom: 0%;
+    left: 0%;                  /* center horizontally */
+    width: 100%;              /* fixed width */
+    height:  100%;             /* fixed height */
+    margin-left: 0px;        /* shift left by half width to center */
+    background-image: url("images/Field.png");
+    background-size: 100% 100%;  /* exact image size */
+    background-repeat: no-repeat;
+    background-position: top center;
+    z-index: 0;
+}
+
+
+
+#goal {
+    width: 100%;                     /* keep relative width */
+    height: auto;                   /* maintain image aspect ratio */
+               /* optional: cap height relative to container */
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-image: url("images/Goal-2.png");  /* replace with your goal image */
+    background-size: contain;       /* scale image to fit the container */
+    background-repeat: no-repeat;
+    background-position: center bottom;  /* aligns bottom of goal */
+    z-index: 4;
+}
+
+#goalkeeper {
+    position: absolute;
+    width: 50%;   /* 50% of goal width */
+    height: auto; /* keep aspect ratio */
+    max-height: 200px; /* optional cap */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-image: url("images/Goalkeeper.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 5;
+}
+
+/* BALL */
+#ball {
+    width: 70px;
+    height:58px;
+    border-radius:50%;
+    position:absolute;
+    bottom:9%;
+    left:50%;
+    transform:translate(-50%,0);
+    background:url("images/Ball.png") center / 105% no-repeat;
+    z-index:10;
+}
+/* TEXT */
+#msgText{
+position:absolute;
+top:10%;
+left:50%;
+transform:translateX(-50%);
+font-size:50px;
+font-family:'Russo One';
+color:white;
+text-shadow:2px 2px 10px black;
+opacity:0;
+transition:.3s;
+z-index:20;
+}
+
+#scoreDisplay{
+position:absolute;
+top:10px;
+right:20px;
+font-size:30px;
+color:rgba(0, 0, 0, 0.90);
+font-family:'Russo One';
+z-index:21;
+}
+
+/* MENU */
+#hamburger{
+position:absolute;
+top:10px;
+left:20px;
+width:30px;
+height:25px;
+z-index:21;
+cursor:pointer;
+}
+#hamburger div{
+width:100%;
+height:4px;
+background:rgb(0, 0, 0.90);
+margin:4px 0;
+}
+
+/* POPUP */
+#overlay{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.7);
+display:none;
+z-index:30;
+align-items:center;
+justify-content:center;
+}
+
+
+#popup {
+    width:220px;
+    max-width:90%;
+    padding:20px;
+    background:#fff;
+    border-radius:15px;
+    box-shadow:0 8px 25px rgba(0,0,0,0.25);
+    z-index:31;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:10px;
+    text-align:center;
+}
+
+/* Popup Text */
+#popup h3 {
+
+    font-size:20px;
+    font-weight:bold;
+    color:#222;
+}
+#closePopup {
+ 
+    border:none;
+
+    background:#4caf4f00;
+    color:rgb(0, 0, 0);
+    font-weight:bold;
+    cursor:pointer;
+    width: 100%;
+    margin-left: 90%;
+    font-size: 22px;
+}
+/* Popup Buttons */
+#popup button:not(#closePopup) {
+    padding:10px 15px;
+    border:none;
+    border-radius:10px;
+    background:#4caf50;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    width:100%;
+}
+
+#popup button#returnHome {
+    background:#000;
+    margin-top:5px;
+}
+
+#popup button#skipCelebration {
+    background:#4caf50;
+    margin-top:5px;
+}
+
+/* ===== HITBOX DEBUG ===== */
+.debug-hitbox {
+    position:absolute;
+    border:2px solid rgba(0, 255, 0, 0);
+    pointer-events:none;
+    z-index:9;
+}
+
+#goalHitbox {
+    background:rgba(0, 255, 0, 0);
+}
+@media (max-width:431px) {
+    #goal {
+        width:75%;
+     
+        height: 25%;
+       
+    }
+    #goalkeeper {
+        width: 45vw;
+        height: 45vw;
+    }
+}
+/* TABLET & UP */
+@media (min-width:426px) {
+    #goal {
+        width:45%;
+      
+        height: 25%;
+      
+    }
+    #goalkeeper {
+        width: 30vw;             /* 5% of viewport width */
+        height: 30vw;  
+    }
+}
+
+/* 769-1440px smaller goal width */
+@media (min-width:769px) and (max-width:1440px) {
+    #goal {
+        width:40%;
+        
+        height: 25%;
+      
+    }
+    #goalkeeper {
+        width: 30vw;             /* 5% of viewport width */
+        height: 30vw;  
+    }
+}
+
+/* ===== LAPTOP & DESKTOP UI SCALING ===== */
+@media (min-width: 1024px) {
+    #goal {
+        width:40%;
+        
+        height: 25%;
+        border-width:14px;
+    }
+    #goalkeeper {
+        width: 30vw;             /* 5% of viewport width */
+        height: 30vw;  
+    }
+
+/* SCORE TEXT */
+#scoreDisplay {
+    font-size: 42px;
+    top: 20px;
+    right: 30px;
+}
+
+/* GOAL / MISS TEXT */
+#msgText {
+    font-size: 80px;
+    top: 12%;
+}
+
+/* HAMBURGER MENU */
+#hamburger {
+    width: 45px;
+    height: 38px;
+    top: 20px;
+    left: 30px;
+}
+
+#hamburger div {
+    height: 6px;
+    margin: 6px 0;
+}
+
+/* POPUP MENU */
+#popup {
+    width: 340px;
+    padding: 30px;
+    gap: 16px;
+}
+
+#popup h3 {
+    font-size: 28px;
+}
+
+#popup button:not(#closePopup) {
+    font-size: 18px;
+    padding: 14px 18px;
+}
+
+#closePopup {
+    font-size: 22px;
+}
+}
+/* FADE IN FROM BLACK */
+#fadeScreen {
+    position:fixed;
+    inset:0;
+    background:black;
+    z-index:990;
+    opacity:1;
+    transition: opacity 1.5s ease-out;
+}
+#fadeScreen2 {
+    position: fixed;
+    inset: 0;
+    background: black;
+    z-index: 50;
+    opacity: 0;              /* start transparent */
+    transition: opacity 1.5s ease-in;
+    pointer-events: none;    /* clicks pass through until active */
+}
+
+
+
+/* CROWD BOUNCE ANIMATION */
+@keyframes bounceCrowd {
+    0%, 100% { transform: translateY(0); }
+    25% { transform: translateY(-8px); }
+    50% { transform: translateY(-16px); }
+    75% { transform: translateY(-8px); }
+}
+.bounce {
+    animation: bounceCrowd 0.6s ease;
+}
+</style>
+</head>
+
+<body>
+
+<div id="screenWarning">
+<h2 style="font-size:36px;">⚠ Screen Too Large</h2>
+<p style="font-size:20px;max-width:500px">
+This game is best played on a smaller screen or mobile device.
+</p>
+<p style="opacity:.7;margin-top:20px">
+Try resizing your browser window.
+</p>
+</div>
+
+<div id="gameArea">
+
+<div id="sky"></div>
+<div id="grass"></div>
+<div id="fadeScreen"></div>
+
+<div id="crowd"></div>
+
+<div id="goal"></div>
+<div id="goalkeeper"></div>
+<div id="ball"></div>
+
+<div id="scoreDisplay">Score: 0</div>
+
+<div id="hamburger">
+<div></div>
+<div></div>
+<div></div>
+</div>
+
+<div id="overlay">
+<div id="popup">
+<button id="closePopup">✕</button>
+<h3>Pause Menu</h3>
+<button id="returnHome">Return Home</button>
+<button id="skipCelebration">Go to Celebration</button>
+</div>
+</div>
+
+<div id="ballHitbox" class="debug-hitbox"></div>
+<div id="keeperHitbox" class="debug-hitbox"></div>
+<div id="goalHitbox" class="debug-hitbox"></div>
+
+<div id="msgText"></div>
+
+</div>
+
+<script>
+
+/* ELEMENTS */
+
+const ball=document.getElementById('ball')
+const keeper=document.getElementById('goalkeeper')
+const goal=document.getElementById('goal')
+const msgText=document.getElementById('msgText')
+const scoreDisplay=document.getElementById('scoreDisplay')
+
+const ballHitbox=document.getElementById('ballHitbox')
+const keeperHitbox=document.getElementById('keeperHitbox')
+const goalHitbox=document.getElementById('goalHitbox')
+
+const overlay=document.getElementById('overlay')
+const hamburger=document.getElementById('hamburger')
+const closePopupBtn=document.getElementById('closePopup')
+const returnHomeBtn=document.getElementById('returnHome')
+const skipCelebrationBtn=document.getElementById('skipCelebration')
+
+/* GAME STATE */
+
+let ballX=50
+let ballY=9
+let ballSpeedX=0
+let ballSpeedY=0
+let isShooting=false
+let isPaused=false
+let keeperX=50
+let keeperDir=1
+let keeperSpeedPx=140
+let score=0
+let lastTime=performance.now()
+
+const GOAL_HITBOX_SCALE=0.7
+const KEEPER_SPEED_MULTIPLIER_PER_SCORE=.05
+
+/* RESET BALL */
+
+function resetBall(){
+
+ballX=50
+ballY=9
+
+ballSpeedX=0
+ballSpeedY=0
+isShooting=false
+
+ball.style.left=ballX+'%'
+ball.style.bottom=ballY+'%'
+ball.style.transform="translate(-50%,0) scale(1)"
+
+}
+
+/* MESSAGE */
+
+let messageTimeoutId=null
+let isMenuOpen=false
+
+function animateCrowd(){
+
+const crowd=document.getElementById('crowd')
+
+crowd.classList.remove('bounce')
+void crowd.offsetWidth
+crowd.classList.add('bounce')
+
+}
+
+function showMessage(text,color,callback){
+
+isPaused=true
+
+if(messageTimeoutId){
+clearTimeout(messageTimeoutId)
+messageTimeoutId=null
+}
+
+msgText.textContent=text
+msgText.style.color=color
+msgText.style.opacity=1
+
+animateCrowd()
+
+messageTimeoutId=setTimeout(()=>{
+
+msgText.style.opacity=0
+
+if(!isMenuOpen){
+isPaused=false
+}
+
+if(callback)callback()
+
+},1900)
+
+}
+
+/* BALL */
+
+function moveBall(){
+
+if(!isShooting||isPaused)return
+
+ballX+=ballSpeedX
+ballY+=ballSpeedY
+
+ball.style.left=ballX+'%'
+ball.style.bottom=ballY+'%'
+
+let scale=(1-ballY/1000)
+if(scale<0)scale=0
+
+ball.style.transform=`translate(-50%,0) scale(${scale}) rotate(${ballY*5}deg)`
+
+checkCollision()
+
+}
+
+/* KEEPER */
+
+function moveKeeper(delta){
+
+if(isPaused)return
+
+const goalRect=goal.getBoundingClientRect()
+
+const speedMultiplier=1+score*KEEPER_SPEED_MULTIPLIER_PER_SCORE
+
+const pxMove=keeperSpeedPx*speedMultiplier*delta
+
+const percentMove=(pxMove/goalRect.width)*100
+
+keeperX+=keeperDir*percentMove
+
+if(keeperX>75){
+keeperX=75
+keeperDir=-1
+}
+
+else if(keeperX<25){
+keeperX=25
+keeperDir=1
+}
+
+keeper.style.left=keeperX+'%'
+
+}
+
+/* COLLISION */
+
+function ballInsideGoalHitbox(ballRect,hitboxRect){
+
+return(
+ballRect.right>hitboxRect.left&&
+ballRect.left<hitboxRect.right&&
+ballRect.bottom>hitboxRect.top&&
+ballRect.top<hitboxRect.bottom
+)
+
+}
+
+function checkCollision(){
+
+const b=ball.getBoundingClientRect()
+const k=keeper.getBoundingClientRect()
+
+const hitboxScale=.2
+
+const hitboxWidth=k.width*hitboxScale
+const hitboxHeight=k.height*hitboxScale
+
+const hitboxLeft=k.left+(k.width-hitboxWidth)/2
+const hitboxTop=k.top+(k.height-hitboxHeight)/2
+
+const goalHB=goalHitbox.getBoundingClientRect()
+
+if(
+b.right>hitboxLeft &&
+b.left<hitboxLeft+hitboxWidth &&
+b.bottom>hitboxTop &&
+b.top<hitboxTop+hitboxHeight
+){
+
+showMessage("FAIL!","#ff3333",resetBall)
+return
+
+}
+
+if(ballInsideGoalHitbox(b,goalHB)){
+
+score++
+keeperSpeedPx+=10
+
+scoreDisplay.textContent="Score: "+score
+
+showMessage("GOAL!","#33ff33",resetBall)
+
+return
+}
+
+if(ballY>100){
+showMessage("MISS!","#ff3333",resetBall)
+}
+
+}
+
+/* HITBOXES */
+
+function updateHitboxes(){
+
+const b=ball.getBoundingClientRect()
+const k=keeper.getBoundingClientRect()
+const g=goal.getBoundingClientRect()
+
+ballHitbox.style.left=b.left+'px'
+ballHitbox.style.top=b.top+'px'
+ballHitbox.style.width=b.width+'px'
+ballHitbox.style.height=b.height+'px'
+
+const hitboxScale=.2
+
+const hitboxWidth=k.width*hitboxScale
+const hitboxHeight=k.height*hitboxScale
+
+keeperHitbox.style.width=hitboxWidth+'px'
+keeperHitbox.style.height=hitboxHeight+'px'
+keeperHitbox.style.left=k.left+(k.width-hitboxWidth)/2+'px'
+keeperHitbox.style.top=k.top+(k.height-hitboxHeight)/2+'px'
+
+const goalHitboxWidth=g.width*GOAL_HITBOX_SCALE
+const goalHitboxHeight=g.height*.55
+
+const goalHitboxLeft=g.left+(g.width-goalHitboxWidth)/2
+const goalHitboxTop=g.top+(g.height-goalHitboxHeight)/2
+
+goalHitbox.style.left=goalHitboxLeft+'px'
+goalHitbox.style.top=goalHitboxTop+'px'
+goalHitbox.style.width=goalHitboxWidth+'px'
+goalHitbox.style.height=goalHitboxHeight+'px'
+
+}
+
+/* LOOP */
+
+function gameLoop(time){
+
+const delta=(time-lastTime)/1000
+lastTime=time
+
+moveKeeper(delta)
+moveBall()
+updateHitboxes()
+
+requestAnimationFrame(gameLoop)
+
+}
+
+requestAnimationFrame(gameLoop)
+
+/* SHOOT */
+
+document.body.addEventListener('click',e=>{
+
+if(isShooting||isPaused)return
+
+const goalRect=goal.getBoundingClientRect()
+
+let clampedX=Math.max(goalRect.left,Math.min(e.clientX,goalRect.right))
+
+let aim=(clampedX-goalRect.left)/goalRect.width
+
+let direction=(aim-.5)*2
+
+ballSpeedX=direction*1.8
+ballSpeedY=2.2
+
+isShooting=true
+
+})
+
+/* MENU */
+
+hamburger.onclick=()=>{
+overlay.style.display='flex'
+isMenuOpen=true
+isPaused=true
+}
+
+closePopupBtn.onclick=()=>{
+overlay.style.display='none'
+isMenuOpen=false
+isPaused=false
+}
+
+returnHomeBtn.onclick=()=>{
+window.location.href="index2.html"
+}
+
+skipCelebrationBtn.onclick=()=>{
+window.location.href="end.html"
+}
+
+/* FADE IN */
+
+window.addEventListener('load',()=>{
+
+const fade=document.getElementById('fadeScreen')
+
+setTimeout(()=>fade.style.opacity=0,100)
+
+setTimeout(()=>fade.style.display='none',1600)
+
+})
+
+/* SCREEN SIZE CHECK */
+
+const screenWarning=document.getElementById('screenWarning')
+
+function checkScreenSize(){
+
+if(window.innerWidth>1024){
+
+screenWarning.style.display="flex"
+isPaused=true
+
+}else{
+
+screenWarning.style.display="none"
+isPaused=false
+
+}
+
+}
+
+window.addEventListener("resize",checkScreenSize)
+window.addEventListener("load",checkScreenSize)
+
+</script>
+
+</body>
+</html>
