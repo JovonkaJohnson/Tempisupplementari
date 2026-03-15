@@ -369,12 +369,12 @@ text-align:center;
 font-family:'Russo One', sans-serif;
 padding:40px;
 ">
-<h2 style="font-size:36px;">⚠ Screen Too Large</h2>
+<h2 style="font-size:36px;">⚠ Schermo troppo grande</h2>
 <p style="font-size:20px; max-width:500px;">
-This game is best played on a smaller screen or mobile device.
+Questo gioco si apprezza al meglio su uno schermo più piccolo o su un dispositivo mobile.
 </p>
 <p style="margin-top:20px; opacity:0.7;">
-Try resizing your browser window.
+Prova a ridimensionare la finestra del browser.
 </p>
 </div>
 <!-- TUTORIAL OVERLAY -->
@@ -392,9 +392,10 @@ Try resizing your browser window.
     font-size:24px;
     padding:20px;
 ">
-    <h2>Kick the ball into the goal!</h2>
-    <p>Avoid the goalkeeper. Score 3 goals to unlock the celebration.</p>
-    <p style="margin-top:60px; font-size:12px;  color:rgb(149, 149, 149);">Tap anywhere to start</p>
+    <h2>Calcia la palla in porta!
+    </h2>
+    <p>Evita il portiere. Segna 3 goal per sbloccare la celebrazione.</p>
+    <p style="margin-top:60px; font-size:12px;  color:rgb(149, 149, 149);">Tocca ovunque per iniziare</p>
 </div>
 <div id="gameContainer">
     <div id="gameArea">
@@ -410,7 +411,7 @@ Try resizing your browser window.
     <div id="ball"></div>
 
     <!-- SCORE -->
-    <div id="scoreDisplay">Score: 0</div>
+    <div id="scoreDisplay">Punteggio: 0</div>
 
     <!-- HAMBURGER -->
     <div id="hamburger">
@@ -424,9 +425,9 @@ Try resizing your browser window.
         <div id="popup">
             <!-- Close X button -->
             <button id="closePopup">✕</button>
-            <h3>Pause Menu</h3>
-            <button id="returnHome">Return Home</button>
-            <button id="skipCelebration">Skip to Celebration</button>
+            <h3>Menu pausa</h3>
+            <button id="returnHome">Torna alla schermata iniziale</button>
+            <button id="skipCelebration">Vai alla celebrazione</button>
         </div>
     </div>
 
@@ -442,8 +443,8 @@ Try resizing your browser window.
         <canvas id="confettiCanvas" style="position:absolute; inset:0; width:100%; height:100%; z-index:34;"></canvas>
     
         <div id="winPopup" style="width:300px; padding:25px; background:#fff; border-radius:15px; text-align:center; display:flex; flex-direction:column; gap:15px; z-index:35;">
-            <h3 style="font-size:24px; color:#222;">You did it! Now on to the celebration</h3>
-            <button id="goBtn" style="padding:14px; border:none; border-radius:10px; background:#4caf50; color:white; font-weight:bold; cursor:pointer; font-size:18px;">Go!</button>
+            <h3 style="font-size:24px; color:#222;">Ce l'hai fatta! Ora, spazio ai festeggiamenti.</h3>
+            <button id="goBtn" style="padding:14px; border:none; border-radius:10px; background:#4caf50; color:white; font-weight:bold; cursor:pointer; font-size:18px;">Andare!</button>
         </div>
     </div>
 </div>
@@ -471,7 +472,7 @@ Try resizing your browser window.
     let ballSpeedX = 0, ballSpeedY = 0;
     let isShooting = false;
     let isPaused = false;
-    let isCooldown = false; // ✅ NEW
+    let isCooldown = false; 
     let keeperX = 50;
     let keeperDir = 1;
     let keeperSpeedPx = 140;
@@ -578,14 +579,14 @@ Try resizing your browser window.
         b.bottom > hitboxTop &&
         b.top < hitboxTop + hitboxHeight
     ) {
-        showMessage("FAIL!", "#ff3333", resetBall);
+        showMessage("Fallito!", "#ff3333", resetBall);
         return;
     }
 
     // ===== GOAL COLLISION =====
     if (ballInsideGoalHitbox(b, goalHB)) {
         score++;
-        scoreDisplay.textContent = "Score: " + score;
+        scoreDisplay.textContent = "Punteggio: " + score;
         keeperSpeedPx += 10;
 
         if (score >= 3) {
@@ -597,13 +598,13 @@ Try resizing your browser window.
             };
             return;
         } else {
-            showMessage("GOAL!", "#33ff33", resetBall);
+            showMessage("Goal!", "#33ff33", resetBall);
         }
         return;
     }
 
     if (ballY > 100) {
-        showMessage("MISS!", "#ff3333", resetBall);
+        showMessage("Fallito!", "#ff3333", resetBall);
     }
 }
     
