@@ -128,13 +128,12 @@
       overflow-x: hidden;
       justify-content: center;
     }
-
     .nav-grid a img {
-      width: 100%;
-
-      height: auto;
-      transition: transform 0.3s ease;
-    }
+  width: 80%;
+  
+  height: auto;
+  transition: transform 0.3s ease;
+}
 
 
     .nav-grid a:hover img {
@@ -169,56 +168,58 @@
     }
 
     .banner-button {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-decoration: none;
-      width: 80%;
-      max-width: 1440px;
-      margin: 20px auto;
-      border-radius: 15px;
-      overflow: hidden;
-      cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  width: 80%;
+  max-width: 1440px;
+  margin: 20px auto;
+  border-radius: 15px;
+  overflow: hidden;
+  cursor: pointer;
+  margin-top: 40%;
+  /* white pulse animation */
+  animation: whitePulse 2s ease-out infinite;
+}
 
+@keyframes whitePulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
 
-      animation: whitePulse 2s ease-out infinite;
-    }
+  60% {
+    box-shadow: 0 0 25px 10px rgba(0, 0, 0, 0.162);
+  }
 
-    @keyframes whitePulse {
-      0% {
-        box-shadow: 0 0 0 0 rgba(255, 247, 0, 0.8);
-      }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 247, 0,0);
+  }
+}
 
-      60% {
-        box-shadow: 0 0 25px 10px rgba(255, 247, 0, 0.4);
-      }
+.banner-img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
 
-      100% {
-        box-shadow: 0 0 0 0 rgba(255, 247, 0, 0);
-      }
-    }
+/* CTA Section */
+.cta-section{
 
-    .banner-img {
-      width: 100%;
-      height: auto;
-      object-fit: cover;
-    }
+  
+padding-right: 10%;
+padding-left: 10%;
+}
 
-    .cta-section {
-
-
-      padding-right: 10%;
-      padding-left: 10%;
-    }
-
-    .cta-text {
-      font-size: clamp(15px, 2.6vw, 20px);
-
-      color: #1a1a1a;
-      margin-bottom: 18px;
-
-      text-align: center;
-    }
+.cta-text{
+  font-size: clamp(15px, 2.6vw, 20px);
+position: relative;
+  color:#1a1a1a;
+  margin-bottom: -48%;
+padding: 11%;
+  text-align: left;
+margin-top: 20%;
+}
 
     .cta-btn {
       display: inline-block;
@@ -345,7 +346,7 @@
 
       padding-top: 30%;
       padding-bottom: 30%;
-      margin-bottom: 10%;
+      margin-bottom: 0%;
       color: #fff9e2;
       position: relative;
       font-size: clamp(16px, 2.5vw, 20px);
@@ -447,11 +448,11 @@ width: 100%;
     .scripture-title {
       background: url('images/section5.png') center/cover no-repeat;
       color: white;
-      padding: 7%;
-      margin-top: 7%;
+      padding: 9%;
+      margin-top: 0%;
       text-align: center;
       font-weight: bold;
-      font-size: clamp(18px, 2.5vw, 25px);
+      font-size: clamp(15px, 2.5vw, 25px);
     }
 
 
@@ -473,6 +474,40 @@ width: 100%;
 
       margin-top: -20%;
     }
+    .banner-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.banner-img {
+  display: block;
+  width: 100%;
+}
+
+.arrow-button {
+  position: absolute;
+  bottom: 30px;
+  right: 50px;
+  background-color: rgb(255, 204, 0);
+  color: black;
+  text-decoration: none;
+  font-size: 20px;
+  padding: 8px 12px;
+  border-radius: 50%;
+  font-weight: bold;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  transition: transform 0.2s ease;
+}
+
+.arrow-button:hover {
+  transform: scale(1.1);
+}
+h2{
+  text-align: left;
+  padding: 11%;
+  margin-top: 20%;
+  margin-bottom: -10%;
+}
   </style>
 </head>
 
@@ -582,27 +617,27 @@ width: 100%;
 
     <section class="section section5">
 
-      <h1 class="cta-line">La fede significa che c’è di più nella tua storia. Qual è il tuo obiettivo?</h1>
+      <p class="scripture-title">La fede significa che c’è di più nella tua storia. Qual è il tuo obiettivo?</p>
 
 
     </section>
-
-    <a href="https://www.bible.com/reading-plans/25084-catechism-gods-love" target="_blank" class="banner-button">
-      <img src="images/Italian-colored.webp" alt="" class="banner-img" />
-
-    </a>
+    <div class="cta-text">
+      Tocca per scoprire cosa dice Dio su scopo, lavoro di squadra e perseveranza. </div>
+  
+      <div class="banner-wrapper">
+        <a href="https://www.bible.com/reading-plans/25084-catechism-gods-love" target="_blank" class="banner-button">
+          <img src="images/Italian-colored.webp" alt="" class="banner-img" />
+        </a>
+      
+        <a href="https://www.bible.com/reading-plans/25084-catechism-gods-love" target="_blank" class="arrow-button">
+          ➜
+        </a>
+      </div>
     <div class="or-heading"></div>
     <div class="cta-section">
 
-      <div class="cta-text">
-        Allena il tuo cuore come alleni il tuo gioco.<br>
-        Scopri cosa Dio dice sul proposito, sul lavoro di squadra e sulla perseveranza. </div>
-    
-      <a href="#menu-buttons" class="cta-btn">
-        Tocca per continuare il tuo viaggio
-      </a>
-
     </div>
+    <h2>Esplora altro</h2>
     <div class="nav-grid">
       <a href="page3.html"><img src="images/Workteam Card.webp"></a>
 

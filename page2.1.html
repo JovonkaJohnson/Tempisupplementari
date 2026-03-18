@@ -138,7 +138,7 @@ gap:0%;
 }
 
 .nav-grid a img {
-  width: 100%;
+  width: 80%;
   
   height: auto;
   transition: transform 0.3s ease;
@@ -162,7 +162,6 @@ gap:0%;
     transform-origin: center center;
 }
 
-
 .banner-button {
   display: flex;
   flex-direction: column;
@@ -174,18 +173,18 @@ gap:0%;
   border-radius: 15px;
   overflow: hidden;
   cursor: pointer;
-
+  margin-top: 40%;
   /* white pulse animation */
   animation: whitePulse 2s ease-out infinite;
 }
 
 @keyframes whitePulse {
   0% {
-    box-shadow: 0 0 0 0 rgba(255, 247, 0, 0.8);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
   }
 
   60% {
-    box-shadow: 0 0 25px 10px rgba(255, 247, 0,0.4);
+    box-shadow: 0 0 25px 10px rgba(0, 0, 0, 0.162);
   }
 
   100% {
@@ -209,13 +208,13 @@ padding-left: 10%;
 
 .cta-text{
   font-size: clamp(15px, 2.6vw, 20px);
-
+position: relative;
   color:#1a1a1a;
-  margin-bottom:18px;
-
-  text-align: center;
+  margin-bottom: -48%;
+padding: 11%;
+  text-align: left;
+margin-top: 20%;
 }
-
 
 .cta-btn{
   display:inline-block;
@@ -432,14 +431,14 @@ width: 100%;
 
 /* Scripture title with background image */
 .scripture-title {
-  background: url('images/section5.png') center/cover no-repeat;
-  color: white;
-padding: 7%;
-margin-top: 7%;
-text-align: center;
-  font-weight: bold;
-  font-size: clamp(18px, 2.5vw, 25px);
-}
+      background: url('images/section5.png') center/cover no-repeat;
+      color: white;
+      padding: 9%;
+      margin-top: 10%;
+      text-align: center;
+      font-weight: bold;
+      font-size: clamp(15px, 2.5vw, 25px);
+    }
 
 /* Scripture text normal */
 .scripture-text {
@@ -459,6 +458,40 @@ text-align: center;
   font-size: clamp(18px, 3vw, 26px);
 
   margin-top: 20px;
+}
+.banner-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.banner-img {
+  display: block;
+  width: 100%;
+}
+
+.arrow-button {
+  position: absolute;
+  bottom: 30px;
+  right: 50px;
+  background-color: rgb(255, 204, 0);
+  color: black;
+  text-decoration: none;
+  font-size: 20px;
+  padding: 8px 12px;
+  border-radius: 50%;
+  font-weight: bold;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  transition: transform 0.2s ease;
+}
+
+.arrow-button:hover {
+  transform: scale(1.1);
+}
+h2{
+  text-align: left;
+  padding: 11%;
+  margin-top: 20%;
+  margin-bottom: -10%;
 }
 </style>
 </head>
@@ -556,17 +589,24 @@ text-align: center;
               </div>
           </div>
            <!-- Last line as h1 with blue background -->
-           <h1 class="cta-line">Proteggere la porta: custodisci il tuo cuore e conserva la fede.</h1>
+           <p class="scripture-title">Proteggere la porta: custodisci il tuo cuore e conserva la fede.</p>
            
         </section>
     
       
 
-
-        <a href="https://www.bible.com/reading-plans/25084-catechism-gods-love" target="_blank" class="banner-button">
-          <img src="images/Italian-colored.webp" alt="" class="banner-img" />
-    
-        </a>
+        <div class="cta-text">
+          Tocca per scoprire cosa dice Dio su scopo, lavoro di squadra e perseveranza. </div>
+      
+          <div class="banner-wrapper">
+            <a href="https://www.bible.com/reading-plans/25084-catechism-gods-love" target="_blank" class="banner-button">
+              <img src="images/Italian-colored.webp" alt="" class="banner-img" />
+            </a>
+          
+            <a href="https://www.bible.com/reading-plans/25084-catechism-gods-love" target="_blank" class="arrow-button">
+              ➜
+            </a>
+          </div>
 
  
   <!-- OR Continue Here -->
@@ -574,15 +614,8 @@ text-align: center;
 <!-- CTA SECTION -->
 <div class="cta-section">
 
-  <div class="cta-text">
-    Allena il tuo cuore come alleni il tuo gioco.<br>
-    Scopri cosa Dio dice sul proposito, sul lavoro di squadra e sulla perseveranza. </div>
-
-  <a href="#menu-buttons" class="cta-btn">
-    Tocca per continuare il tuo viaggio
-  </a>
-
 </div>
+<h2>Esplora altro</h2>
   <!-- 2x2 PNG Grid -->
   <div class="nav-grid">
     <a href="page3.1.html"><img src="images/Workteam Card.webp"></a>
